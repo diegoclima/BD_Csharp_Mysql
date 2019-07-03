@@ -7,6 +7,7 @@ using CRUD_MySQL_CSharp_2.Classes.System;
 using CRUD_MySQL_CSharp_2.Conexao.System;
 using System.Data;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace CRUD_MySQL_CSharp_2.Classes.System {
     public class Livro : BDConnect {
@@ -43,8 +44,43 @@ namespace CRUD_MySQL_CSharp_2.Classes.System {
             BDConnect.FecharConexao();
         }
 
+       public DataTable Listar() {
+            try {
+                BDConnect.AbrirConexao();
+                DataTable dt = new DataTable();
+                MySqlDataAdapter sqlDa = new MySqlDataAdapter("livroView", MysqlCon);
+                sqlDa.SelectCommand.CommandType = CommandType.StoredProcedure;
+                sqlDa.Fill(dt);
+                return dt;
 
-        
-       
+
+            }
+            catch (Exception ex) {
+
+                throw new Exception("Erro " + ex.Message);
+            }
+            finally {
+                BDConnect.FecharConexao();
+            }
+
+
+        }
+
+        public void Editar(Livro l) {
+            BDConnect.AbrirConexao();
+            Comando = new MySql.Data.MySqlClient.MySqlCommand("livroAddEdit", MysqlCon);
+
+            Comando.CommandType = CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("_livroID", l.IdLivro);
+            Comando.Parameters.AddWithValue("_nomeLivro", l.NomeLivro);
+            Comando.Parameters.AddWithValue("_Descricao", l.Descricao);
+            Comando.Parameters.AddWithValue("_Autor", l.Autor);
+
+            Comando.ExecuteNonQuery();
+            MessageBox.Show("Livro Salvo com Sucesso!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            BDConnect.FecharConexao();
+        }
+
+
     }
 }
