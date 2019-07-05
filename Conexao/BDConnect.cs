@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace CRUD_MySQL_CSharp_2.Conexao.System {
    public class BDConnect {
         
-        private static string StringConexao = "DATABASE=biblioteca; SERVER=localhost; UID=root; PWD=Mxw34379@";
+        private static string StringConexao = "DATABASE=biblioteca; SERVER=localhost; UID=root; PWD=";
         protected static MySqlConnection MysqlCon;
         protected static MySqlCommand Comando;
         public BDConnect() { }
