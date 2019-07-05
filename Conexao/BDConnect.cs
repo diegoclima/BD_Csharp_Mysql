@@ -7,7 +7,10 @@ using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
 namespace CRUD_MySQL_CSharp_2.Conexao.System {
-   public class BDConnect {
+    /// <summary>
+    /// Classe de conexao com o bd
+    /// </summary>
+    public class BDConnect {
         
         private static string StringConexao = "DATABASE=biblioteca; SERVER=localhost; UID=root; PWD=";
         protected static MySqlConnection MysqlCon;
